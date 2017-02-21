@@ -1,0 +1,15 @@
+#!/bin/bash
+
+docker stop mongo_db
+docker rm mongo_db
+docker stop go_server
+docker rm go_server
+docker stop python_app
+docker rm python_app
+
+docker pull mongo
+docker run -d --name mongo_db mongo &
+docker build -t docker_whale ~/micro_project/go_container/ 
+docker run -d --name go_server --link mongo_db:mongo_db docker_whale &
+docker build -t python_micro ~/micro_project/python_container/
+docker run -d --name python_app --link go_server:go_server -p 5000:5000 python_micro &
