@@ -1,4 +1,4 @@
-# simple_micro_service
+# Simple Micro Service Architecture
 mongo_db->go_server(grpc)->python_app(flask)
 
 How to run:
